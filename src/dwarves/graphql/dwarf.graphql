@@ -1,9 +1,46 @@
-type Dwarf {
-  name: String!
-  profession: String!
+type DwarfAttributes {
+  app: Int!
+  con: Int!
+  dex: Int!
+  int: Int!
+  pow: Int!
+  siz: Int!
+  str: Int!
 }
 
-extend type Query {
+type Dwarf {
+  id: ID!
+  name: String!
+  profession: String!
+  attributes: DwarfAttributes
+  isDead: Boolean!
+  currentHits: Int!
+  wounds: [String]
+}
+
+type Query {
   echo: String
   dwarves: [Dwarf!]
+}
+
+input DwarfAttributesInput {
+  app: Int!
+  con: Int!
+  dex: Int!
+  int: Int!
+  pow: Int!
+  siz: Int!
+  str: Int!
+}
+
+input CreateDwarfInput {
+  name: String!
+  profession: String!
+  attributes: DwarfAttributesInput!
+  isDead: Boolean!
+  wounds: [String]
+}
+
+type Mutation {
+  createDwarf(args: CreateDwarfInput!): Dwarf
 }

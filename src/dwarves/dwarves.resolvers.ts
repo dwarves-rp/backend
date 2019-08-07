@@ -1,5 +1,6 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { DwarvesService } from './dwarves.service';
+import { CreateDwarfInput, Dwarf } from 'src/graphql';
 
 @Resolver('Dwarf')
 export class DwarvesResolvers {
@@ -13,5 +14,12 @@ export class DwarvesResolvers {
   @Query()
   async dwarves() {
     return this.dwarvesService.findAll();
+  }
+
+  @Mutation()
+  async createDwarf(@Args('args') args: CreateDwarfInput): Promise<Dwarf> {
+    const dwarf = await this.dwarvesService.create(args);
+
+    return dwarf;
   }
 }
