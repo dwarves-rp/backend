@@ -1,0 +1,9 @@
+type Dwarf {
+  name: String!
+  profession: String!
+}
+
+extend type Query {
+  echo: String
+  dwarves: [Dwarf!]
+}
