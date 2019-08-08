@@ -13,7 +13,16 @@ export class DwarvesResolvers {
 
   @Query()
   async dwarves() {
-    return this.dwarvesService.findAll();
+    const dwarves = await this.dwarvesService.findAll();
+    return dwarves.map(dwarf => {
+      const thing = {
+        ...dwarf.toJSON(),
+        id: dwarf._id,
+        wounds: [],
+      };
+
+      return thing;
+    });
   }
 
   @Mutation()
